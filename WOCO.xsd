@@ -1,0 +1,43 @@
+<!--CSE532  Project 3-->
+<!--File name:  WOCO.xsd-->
+<!--Author: Sravya Beesabathuni (111327265 )-->
+<!--Brief description: Schema definition of the XML-->
+<!-- I pledge my honor that all parts of this project were done by me alone and
+without collaboration with anybody else. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="root" type="wocoType"/>
+  	<xs:complexType name="wocoType">
+	    <xs:sequence>
+		      <xs:element ref="Person" maxOccurs="unbounded"/>
+		      <xs:element ref="Company" maxOccurs="unbounded"/>
+	    </xs:sequence>
+  	</xs:complexType>
+	<xs:element name="Owner" type="ownerType"/>
+	<xs:complexType name="ownerType">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="OwnsCompany" type="companyOwnedType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="companyOwnedType">
+		<xs:sequence>
+			<xs:element name="CId" type="xs:integer"/>
+			<xs:element name="SharesOwned" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Person" type="ownerType"/>
+	<xs:element name="Company" type="companyType"/>
+	<xs:complexType name="companyType">
+		<xs:complexContent>
+			<xs:extension base="ownerType">
+				<xs:sequence>
+					<xs:element name="SharesIssued" type="xs:integer"/>
+					<xs:element name="SharePrice" type="xs:decimal"/>
+					<xs:element name="Industry" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+					<xs:element name="BoardMember" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+</xs:schema>
